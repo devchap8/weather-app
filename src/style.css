@@ -36,14 +36,75 @@ body {
 
 .tempFormatButton {
     margin-left: auto;
+}
+
+.tempFormatButton,
+.weeklyHourlyButton {
     width: 220px;
     height: 50px;
 }
+
+.weeklyHourlyButton {
+    margin-top: auto;
+    justify-self: center;
+}
+
 
 /* Homepage Middle */
 
 .homepageMiddle {
     background-color: lightblue;
+    display: grid;
+    grid-template-columns: 1fr 1.25fr 1fr;
+    justify-items: center;
+    padding: 10px 0;
+}
+
+.homepageMiddle > * {
+    display: grid;
+    justify-content: space-around;
+    text-align: center;
+    justify-items: center;
+}
+
+/* Middle Left */
+
+.hmlCityName {
+    font-size: 4.5rem;
+    font-weight: bold;
+    margin-top: 70px;
+}
+
+.hmlDateContainer,
+.hmcTempContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 2rem;
+}
+
+/* Middle Center */
+
+.hmcMainTemp {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+/* Middle Right */
+
+.homepageMiddleRight {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.hmrInfoContainer {
+    justify-self: flex-start;
+    text-align: left;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
 }
 
 /* Homepage Bottom */
