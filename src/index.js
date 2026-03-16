@@ -2,6 +2,7 @@ import "./style.css";
 import { ApiManager } from "./apiManager.js";
 import { IconImports } from "./iconImports.js";
 import { DataHandling } from "./dataHandling.js";
+import { DomManager } from "./domManager.js";
 
 const mainWeatherIcon = document.querySelector(".hmcWeatherIcon");
 mainWeatherIcon.src = IconImports.iconMap["clear-day"];
@@ -25,7 +26,7 @@ const changeCities = async (event) => {
     }
     if(weatherData) console.log(weatherData);
     const extractedData = DataHandling.extractWeatherData(weatherData);
-    console.log(extractedData);
+    DomManager.showWeatherInfo(extractedData);
 }   
 
 

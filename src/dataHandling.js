@@ -13,8 +13,8 @@ const extractWeatherData = (data) => {
     const humidity = data.currentConditions.humidity;
     const windSpeed = data.currentConditions.windspeed;
     const precipType = data.currentConditions.preciptype;
-    const precipChance = data.currentConditions.precipprob;
-    const precip = data.currentConditions.precip;
+    const precipChance = data.days[0].precipprob;
+    const precip = data.days[0].precip;
     const condition = data.currentConditions.conditions;
 
     const extractedData = {cityName, weekday, calendarDate, temp, feelsLike, high, low,
