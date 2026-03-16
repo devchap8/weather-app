@@ -4,7 +4,7 @@ import { IconImports } from "./iconImports.js";
 import { DataHandling } from "./dataHandling.js";
 
 const mainWeatherIcon = document.querySelector(".hmcWeatherIcon");
-mainWeatherIcon.src = IconImports.sunIcon;
+mainWeatherIcon.src = IconImports.iconMap["clear-day"];
 
 const citySearchForm = document.querySelector(".citySearchForm");
 
