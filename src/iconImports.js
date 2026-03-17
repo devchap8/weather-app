@@ -20,6 +20,9 @@ import thunderShowersDay from "./images/thunder-showers-day.svg";
 import thunderShowersNight from "./images/thunder-showers-night.svg";
 import thunder from "./images/thunder.svg";
 import wind from "./images/wind.svg";
+import humidity from "./images/humidity.svg";
+import windSpeed from "./images/windspeed.svg";
+import noRain from "./images/no-rain.svg";
 
 const iconMap = {
     "clear-day": clearDay,
@@ -43,7 +46,10 @@ const iconMap = {
     "thunder-showers-day": thunderShowersDay,
     "thunder-showers-night": thunderShowersNight,
     "thunder": thunder,
-    "wind": wind
+    "wind": wind,
+    "windSpeed": windSpeed,
+    "humidity": humidity,
+    "no-rain": noRain
 };
 
 const IconImports = {iconMap};

@@ -1,6 +1,5 @@
 import { IconImports } from "./iconImports.js";
 
-const docBody = document.querySelector("body");
 const homepageBottom = document.querySelector(".homepageBottom");
 const cityName = document.querySelector(".hmlCityName");
 const weekday = document.querySelector(".hmlWeekday");
@@ -13,6 +12,10 @@ const humidity = document.querySelector(".humidityValue");
 const windSpeed = document.querySelector(".windSpeedValue");
 const precipChance = document.querySelector(".precipitationChanceValue");
 const precipAmount = document.querySelector(".precipitationAmountValue");
+const humidityIcon = document.querySelector(".humidityIcon");
+const windSpeedIcon = document.querySelector(".windSpeedIcon");
+const precipIcon = document.querySelector(".precipitationIcon");
+
 
 const showWeatherInfo = (data) => {
     cityName.innerHTML = data.cityName;
@@ -30,6 +33,20 @@ const showWeatherInfo = (data) => {
     data.days.forEach((dayData) => {
         makeDailyDiv(dayData);
     });
+    changePrecipIcon(data);
+}
+
+const changePrecipIcon = (data) => {
+    const precipType = data.precipType;
+    if(precipType.includes("ice") || precipType.includes("freezingrain")) {
+        precipIcon.src = IconImports.iconMap["rain-snow"];
+    } else if(precipType.includes("snow")) {
+        precipIcon.src = IconImports.iconMap["snow"];
+    } else if(precipType.includes("rain")) {
+        precipIcon.src = IconImports.iconMap["rain"];
+    } else {
+        precipIcon.src = IconImports.iconMap["no-rain"];
+    }
 }
 
 const makeDailyDiv = (data) => {
@@ -40,7 +57,6 @@ const makeDailyDiv = (data) => {
     bottomIcon.style.width = "150px";
     bottomIcon.classList.add("bottomIcon");
     bottomIcon.src = IconImports.iconMap[data.icon];
-    console.log(bottomIcon);
     const bottomTemp = document.createElement("div");
     bottomTemp.classList.add("bottomTemp");
     const bottomWeekday = document.createElement("div");
@@ -58,5 +74,11 @@ const makeDailyDiv = (data) => {
     homepageBottom.appendChild(dailyDiv);
 }
 
+const setupUnchangingIcons = () => {
+    humidityIcon.src = IconImports.iconMap["humidity"];
+    windSpeedIcon.src = IconImports.iconMap["windSpeed"];
+}
+
+setupUnchangingIcons();
 const DomManager = {showWeatherInfo};
 export {DomManager};
