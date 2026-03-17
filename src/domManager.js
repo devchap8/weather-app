@@ -1,3 +1,5 @@
+import { IconImports } from "./iconImports.js";
+
 const cityName = document.querySelector(".hmlCityName");
 const weekday = document.querySelector(".hmlWeekday");
 const calendarDate = document.querySelector(".hmlDate");
@@ -21,6 +23,7 @@ const showWeatherInfo = (data) => {
     windSpeed.innerHTML = `${data.windSpeed} mph`;
     precipChance.innerHTML = `${data.precipChance}%`;
     precipAmount.innerHTML = `for ${data.precip} in`;
+    weatherIcon.src = IconImports.iconMap[data.icon];
 }
 
 const DomManager = {showWeatherInfo};

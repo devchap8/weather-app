@@ -10,15 +10,15 @@ const extractWeatherData = (data) => {
     const feelsLike = data.currentConditions.feelslike;
     const high = data.days[0].tempmax;
     const low = data.days[0].tempmin;
-    const humidity = data.currentConditions.humidity;
-    const windSpeed = data.currentConditions.windspeed;
-    const precipType = data.currentConditions.preciptype;
+    const humidity = data.days[0].humidity;
+    const windSpeed = data.days[0].windspeed;
+    const precipType = data.days[0].preciptype;
     const precipChance = data.days[0].precipprob;
     const precip = data.days[0].precip;
-    const condition = data.currentConditions.conditions;
+    const icon = data.days[0].icon;
 
     const extractedData = {cityName, weekday, calendarDate, temp, feelsLike, high, low,
-        humidity, windSpeed, precipType, precipChance, precip, condition};
+        humidity, windSpeed, precipType, precipChance, precip, icon};
     return extractedData;
 } 
 
