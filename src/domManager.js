@@ -23,17 +23,14 @@ const showWeatherInfo = (data) => {
     calendarDate.innerHTML = data.calendarDate;
     temp.innerHTML = `${data.temp}°`;
     feelsLike.innerHTML = `${data.feelsLike}°`;
-    highLow.innerHTML = `High: ${data.high}  Low: ${data.low}`;
+    highLow.innerHTML = `High: ${data.high}°  Low: ${data.low}°`;
     humidity.innerHTML = `${data.humidity}%`;
     windSpeed.innerHTML = `${data.windSpeed} mph`;
     precipChance.innerHTML = `${data.precipChance}%`;
     precipAmount.innerHTML = `for ${data.precip} in`;
     weatherIcon.src = IconImports.iconMap[data.icon];
-    homepageBottom.innerHTML = "";
-    data.days.forEach((dayData) => {
-        makeDailyDiv(dayData);
-    });
     changePrecipIcon(data);
+    displayDailyDivs(data);
 }
 
 const changePrecipIcon = (data) => {
@@ -47,6 +44,13 @@ const changePrecipIcon = (data) => {
     } else {
         precipIcon.src = IconImports.iconMap["no-rain"];
     }
+}
+
+const displayDailyDivs = (data) => {
+    homepageBottom.innerHTML = "";
+    data.days.forEach((dayData) => {
+        makeDailyDiv(dayData);
+    });
 }
 
 const makeDailyDiv = (data) => {

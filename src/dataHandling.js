@@ -1,5 +1,15 @@
 import { format, getDay } from "date-fns";
 
+class CurrentData {
+    #currentData;
+    #dailyBool = false;
+    getCurrentData = () => this.#currentData;
+    getDailyBool = () => this.#dailyBool;
+    setCurrentData = (newData) => this.#currentData = newData;
+    toggleDailyBool = () => this.#dailyBool = !this.#dailyBool;
+}
+const currentData = new CurrentData();
+
 const weekdayList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 const extractWeatherData = (data) => {
@@ -35,6 +45,33 @@ const getDaysInfo = (data) => {
     return daysInfo;
 }
 
+const getCurrentHour = () => {
+    const today = new Date();
+    const splitToday = String(today).split(" ");
+    const currentTime = splitToday[4];
+    const timeSplit = currentTime.split(":");
+    return timeSplit[0];
+}
 
-const DataHandling = {extractWeatherData};
+const getHoursInfo = (data) => {
+    const hoursInfo = [];
+    let dayIndex = 0;
+    let hourIndex = getCurrentHour();
+    for(let i = 0; i < 24; i++) {
+        if(hourIndex > 23) {
+            hourIndex = 0;
+            dayIndex++;
+        }
+        const icon = data.days[dayIndex].hours[hourIndex].icon;
+        const time = data.days[dayIndex].hours[hourIndex].datetime;
+        const temp = data.days[dayIndex].hours[hourIndex].temp;
+        hoursInfo.push({icon, time, temp});
+        hourIndex++;
+    }
+    console.log(hoursInfo);
+    return hoursInfo;
+}
+
+
+const DataHandling = {currentData, extractWeatherData, getHoursInfo};
 export {DataHandling};
