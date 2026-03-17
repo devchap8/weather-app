@@ -16,11 +16,24 @@ const extractWeatherData = (data) => {
     const precipChance = data.days[0].precipprob;
     const precip = data.days[0].precip;
     const icon = data.days[0].icon;
+    const days = getDaysInfo(data);
 
     const extractedData = {cityName, weekday, calendarDate, temp, feelsLike, high, low,
-        humidity, windSpeed, precipType, precipChance, precip, icon};
+        humidity, windSpeed, precipType, precipChance, precip, icon, days};
     return extractedData;
 } 
+
+const getDaysInfo = (data) => {
+    const daysInfo = [];
+    for(let i = 1; i <= 7; i++) {
+        const icon = data.days[i].icon;
+        const temp = data.days[i].temp;
+        const weekday = weekdayList[getDay(data.days[i].datetime.replace(/-/g, '\/'))];
+        const calendarDate = format(data.days[i].datetime.replace(/-/g, '\/'), 'MM/dd');
+        daysInfo.push({icon, temp, weekday, calendarDate});
+    }
+    return daysInfo;
+}
 
 
 const DataHandling = {extractWeatherData};
