@@ -8,6 +8,7 @@ body {
     height: 100vh;
     display: grid;
     grid-template-rows: 70px 1.5fr 1.2fr;
+    position: relative;
 }
 
 /* Homepage Top */
@@ -17,6 +18,7 @@ body {
     display: flex;
     align-items: center;
     padding: 10px;
+    position: relative;
 }
 
 .websiteLogo {
@@ -25,11 +27,15 @@ body {
     margin-right: auto;
 }
 
+.searchScreenButton {
+    height: 60px;
+    width: 600px;
+}
+
 #citySearch {
     height: 40px;
     width: 600px;
-    /* border: none; */
-    border-radius: 10px;
+    /* border-radius: 10px; */
     padding: 10px;
 }
 
@@ -85,7 +91,7 @@ body {
 /* Middle Center */
 
 .hmcMainTemp {
-    font-size: 4rem;
+    font-size: 6rem;
     font-weight: bold;
 }
 
@@ -130,4 +136,24 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+}  
+
+/* Address Input */
+
+.blurred {
+    filter: blur(10px);
+}
+
+.hidden {
+    display: none;
+}
+
+.searchScreen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1000px;
+    height: 1000px;
+    background-color: lightcoral;  
 }

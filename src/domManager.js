@@ -1,5 +1,7 @@
 import { IconImports } from "./iconImports.js";
 
+const homepageTop = document.querySelector(".homepageTop");
+const homepageMiddle = document.querySelector(".homepageMiddle");
 const homepageBottom = document.querySelector(".homepageBottom");
 const cityName = document.querySelector(".hmlCityName");
 const weekday = document.querySelector(".hmlWeekday");
@@ -16,6 +18,7 @@ const humidityIcon = document.querySelector(".humidityIcon");
 const windSpeedIcon = document.querySelector(".windSpeedIcon");
 const precipIcon = document.querySelector(".precipitationIcon");
 const tempFormatButton = document.querySelector(".tempFormatButton");
+const searchScreen = document.querySelector(".searchScreen");
 
 
 const showWeatherInfo = (data) => {
@@ -114,6 +117,24 @@ const formatTime = (time) => {
     else return `${hour - 12}:00 pm`;
 }
 
+const toggleHomepageBlur = () => {
+    if(homepageTop.classList.contains("blurred")) {
+        homepageTop.classList.remove("blurred");
+        homepageMiddle.classList.remove("blurred");
+        homepageBottom.classList.remove("blurred");
+    } else {
+        homepageTop.classList.add("blurred");
+        homepageMiddle.classList.add("blurred");
+        homepageBottom.classList.add("blurred");
+    }
+}
+
+const toggleSearchScreen = () => {
+    searchScreen.classList.contains("hidden")
+        ? searchScreen.classList.remove("hidden")
+        : searchScreen.classList.add("hidden");
+}
+
 const changeTempFormatButtonContents = (tempInF) => {
     tempInF ? tempFormatButton.innerHTML = "Change display to °C"
         : tempFormatButton.innerHTML = "Change display to °F";
@@ -125,5 +146,8 @@ const setupUnchangingIcons = () => {
 }
 
 setupUnchangingIcons();
-const DomManager = {showWeatherInfo, displayDailyDivs, displayHourlyDivs, changeTempFormatButtonContents};
+const DomManager = {
+    showWeatherInfo, displayDailyDivs, displayHourlyDivs, changeTempFormatButtonContents,
+    toggleHomepageBlur, toggleSearchScreen
+};
 export {DomManager};

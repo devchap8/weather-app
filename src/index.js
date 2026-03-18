@@ -7,6 +7,10 @@ import { DomManager } from "./domManager.js";
 const citySearchForm = document.querySelector(".citySearchForm");
 const dailyHourlyButton = document.querySelector(".dailyHourlyButton");
 const tempFormatButton = document.querySelector(".tempFormatButton");
+const searchScreenButton = document.querySelector(".searchScreenButton");
+const homepageTop = document.querySelector(".homepageTop");
+const homepageMiddle = document.querySelector(".homepageMiddle");
+const homepageBottom = document.querySelector(".homepageBottom");
 
 const displayCityInfoFromSearch = async (event) => {
     event.preventDefault();
@@ -53,14 +57,51 @@ const toggleFarCel = () => {
         : DomManager.displayHourlyDivs(data);
 }
 
+const showSearchScreen = () => {
+    DomManager.toggleHomepageBlur();
+    removeHomescreenElementEventListeners();
+    DomManager.toggleSearchScreen();
+    setTimeout(() => {
+        addFullHomescreenEventListener();
+    }, 300);
+}
+
+const hideSearchScreen = () => {
+    DomManager.toggleHomepageBlur();
+    addHomescreenElementEventListeners();
+    DomManager.toggleSearchScreen();
+    removeFullHomescreenEventListener();
+}
+
 const displayDefaultInfo = () => {
     displayCityInfo("New York City");
 }
 
-const setupEventListeners = () => {
-    citySearchForm.addEventListener("submit", displayCityInfoFromSearch);
+const addHomescreenElementEventListeners = () => {
     dailyHourlyButton.addEventListener("click", toggleDailyHourly);
     tempFormatButton.addEventListener("click", toggleFarCel);
+    searchScreenButton.addEventListener("click", showSearchScreen);
+}
+const removeHomescreenElementEventListeners = () => {
+    dailyHourlyButton.removeEventListener("click", toggleDailyHourly);
+    tempFormatButton.removeEventListener("click", toggleFarCel);
+    searchScreenButton.removeEventListener("click", showSearchScreen);
+}
+
+const addFullHomescreenEventListener = () => {
+    homepageTop.addEventListener("click", hideSearchScreen);
+    homepageMiddle.addEventListener("click", hideSearchScreen);
+    homepageBottom.addEventListener("click", hideSearchScreen);
+}
+const removeFullHomescreenEventListener = () => {
+    homepageTop.removeEventListener("click", hideSearchScreen);
+    homepageMiddle.removeEventListener("click", hideSearchScreen);
+    homepageBottom.removeEventListener("click", hideSearchScreen);
+}
+
+const setupEventListeners = () => {
+    citySearchForm.addEventListener("submit", displayCityInfoFromSearch);
+    addHomescreenElementEventListeners();
 }
 
 const init = () => {
