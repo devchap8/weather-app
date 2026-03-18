@@ -38,12 +38,12 @@ body {
 }
 
 .tempFormatButton,
-.weeklyHourlyButton {
+.dailyHourlyButton {
     width: 220px;
     height: 50px;
 }
 
-.weeklyHourlyButton {
+.dailyHourlyButton {
     margin-top: auto;
     justify-self: center;
 }
@@ -126,6 +126,7 @@ body {
 .bottomDiv {
     font-size: 1.75rem;
     text-align: center;
+    align-items: center;
     display: flex;
     flex-direction: column;
     gap: 20px;

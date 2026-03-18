@@ -30,20 +30,18 @@ const showWeatherInfo = (data) => {
     precipAmount.innerHTML = `for ${data.precip} in`;
     weatherIcon.src = IconImports.iconMap[data.icon];
     changePrecipIcon(data);
-    displayDailyDivs(data);
 }
 
 const changePrecipIcon = (data) => {
     const precipType = data.precipType;
-    if(precipType.includes("ice") || precipType.includes("freezingrain")) {
+    if(!precipType) precipIcon.src = IconImports.iconMap["no-rain"];
+    else if(precipType.includes("ice") || precipType.includes("freezingrain")) {
         precipIcon.src = IconImports.iconMap["rain-snow"];
     } else if(precipType.includes("snow")) {
         precipIcon.src = IconImports.iconMap["snow"];
     } else if(precipType.includes("rain")) {
         precipIcon.src = IconImports.iconMap["rain"];
-    } else {
-        precipIcon.src = IconImports.iconMap["no-rain"];
-    }
+    } 
 }
 
 const displayDailyDivs = (data) => {
@@ -60,7 +58,6 @@ const makeDailyDiv = (data) => {
     bottomIcon.style.height = "150px";
     bottomIcon.style.width = "150px";
     bottomIcon.classList.add("bottomIcon");
-    bottomIcon.src = IconImports.iconMap[data.icon];
     const bottomTemp = document.createElement("div");
     bottomTemp.classList.add("bottomTemp");
     const bottomWeekday = document.createElement("div");
@@ -78,11 +75,49 @@ const makeDailyDiv = (data) => {
     homepageBottom.appendChild(dailyDiv);
 }
 
+const displayHourlyDivs = (data) => {
+    homepageBottom.innerHTML = "";
+    data.hours.forEach((hourData) => {
+        makeHourlyDiv(hourData);
+    });
+}
+
+const makeHourlyDiv = (data) => {
+    const hourlyDiv = document.createElement("div");
+    hourlyDiv.style.width = "230px";
+    hourlyDiv.classList = ("hourlyDiv bottomDiv");
+    const bottomIcon = document.createElement("img");
+    bottomIcon.classList.add("bottomIcon");
+    bottomIcon.style.height = "150px";
+    bottomIcon.style.width = "150px";
+    bottomIcon.src = IconImports.iconMap[data.icon];
+    const bottomTemp = document.createElement("div");
+    bottomTemp.classList.add("bottomTemp");
+    const bottomTime = document.createElement("div");
+    bottomTime.classList.add("bottomTime");
+    bottomTemp.innerHTML = `${data.temp}°`;
+    const time = formatTime(data.time);
+    bottomTime.innerHTML = time;
+    hourlyDiv.appendChild(bottomIcon);
+    hourlyDiv.appendChild(bottomTemp);
+    hourlyDiv.appendChild(bottomTime);
+    homepageBottom.appendChild(hourlyDiv);
+}
+
+const formatTime = (time) => {
+    const timeParams = time.split(":");
+    const hour = Number(timeParams[0]);
+    if(hour === 0) return "12:00 am";
+    else if(hour > 0 && hour <= 11) return `${hour}:00 am`;
+    else if(hour === 12) return "12:00 pm";
+    else return `${hour - 12}:00 pm`;
+}
+
 const setupUnchangingIcons = () => {
     humidityIcon.src = IconImports.iconMap["humidity"];
     windSpeedIcon.src = IconImports.iconMap["windSpeed"];
 }
 
 setupUnchangingIcons();
-const DomManager = {showWeatherInfo};
+const DomManager = {showWeatherInfo, displayDailyDivs, displayHourlyDivs};
 export {DomManager};

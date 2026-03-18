@@ -2,11 +2,11 @@ import { format, getDay } from "date-fns";
 
 class CurrentData {
     #currentData;
-    #dailyBool = false;
+    #dailyBool = true;
     getCurrentData = () => this.#currentData;
     getDailyBool = () => this.#dailyBool;
     setCurrentData = (newData) => this.#currentData = newData;
-    toggleDailyBool = () => this.#dailyBool = !this.#dailyBool;
+    setDailyBool = (newBool) => this.#dailyBool = newBool;
 }
 const currentData = new CurrentData();
 
@@ -27,9 +27,10 @@ const extractWeatherData = (data) => {
     const precip = data.days[0].precip;
     const icon = data.days[0].icon;
     const days = getDaysInfo(data);
+    const hours = getHoursInfo(data);
 
     const extractedData = {cityName, weekday, calendarDate, temp, feelsLike, high, low,
-        humidity, windSpeed, precipType, precipChance, precip, icon, days};
+        humidity, windSpeed, precipType, precipChance, precip, icon, days, hours};
     return extractedData;
 } 
 
