@@ -1,12 +1,9 @@
 import { format, getDay } from "date-fns";
 
 class CurrentData {
-    #currentData;
-    #dailyBool = true;
-    getCurrentData = () => this.#currentData;
-    getDailyBool = () => this.#dailyBool;
-    setCurrentData = (newData) => this.#currentData = newData;
-    setDailyBool = (newBool) => this.#dailyBool = newBool;
+    currentData;
+    dailyBool = true;
+    tempInF = true;
 }
 const currentData = new CurrentData();
 
@@ -69,10 +66,44 @@ const getHoursInfo = (data) => {
         hoursInfo.push({icon, time, temp});
         hourIndex++;
     }
-    console.log(hoursInfo);
+
     return hoursInfo;
 }
 
+const convertTemps = () => {
+    const data = currentData.currentData;
+    const tempLocations = ["temp", "feelsLike", "high", "low"];
+    if(currentData.tempInF) {
+        tempLocations.forEach(element => {
+            data[element] = farToCel(data[element]);
+        });
+        data.days.forEach(element => {
+            element.temp = farToCel(element.temp);
+        });
+        data.hours.forEach(element => {
+            element.temp = farToCel(element.temp);
+        });
+    } else {
+        tempLocations.forEach(element => {
+            data[element] = celToFar(data[element]);
+        });
+        data.days.forEach(element => {
+            element.temp = celToFar(element.temp);
+        });
+        data.hours.forEach(element => {
+            element.temp = celToFar(element.temp);
+        });
+    }
+}
+const celToFar = (temp) => {
+    const newTemp = (Number(temp) * (9/5) + 32);
+    return (Math.round(newTemp * 10) / 10);
+}
+const farToCel = (temp) => {
+    const newTemp = ((Number(temp) - 32) / (9/5));
+    return (Math.round(newTemp * 10) / 10);
+}
 
-const DataHandling = {currentData, extractWeatherData, getHoursInfo};
+
+const DataHandling = {currentData, extractWeatherData, getHoursInfo, convertTemps};
 export {DataHandling};

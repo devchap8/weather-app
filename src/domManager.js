@@ -15,6 +15,7 @@ const precipAmount = document.querySelector(".precipitationAmountValue");
 const humidityIcon = document.querySelector(".humidityIcon");
 const windSpeedIcon = document.querySelector(".windSpeedIcon");
 const precipIcon = document.querySelector(".precipitationIcon");
+const tempFormatButton = document.querySelector(".tempFormatButton");
 
 
 const showWeatherInfo = (data) => {
@@ -22,7 +23,7 @@ const showWeatherInfo = (data) => {
     weekday.innerHTML = data.weekday;
     calendarDate.innerHTML = data.calendarDate;
     temp.innerHTML = `${data.temp}°`;
-    feelsLike.innerHTML = `${data.feelsLike}°`;
+    feelsLike.innerHTML = `Feels like ${data.feelsLike}°`;
     highLow.innerHTML = `High: ${data.high}°  Low: ${data.low}°`;
     humidity.innerHTML = `${data.humidity}%`;
     windSpeed.innerHTML = `${data.windSpeed} mph`;
@@ -113,11 +114,16 @@ const formatTime = (time) => {
     else return `${hour - 12}:00 pm`;
 }
 
+const changeTempFormatButtonContents = (tempInF) => {
+    tempInF ? tempFormatButton.innerHTML = "Change display to °C"
+        : tempFormatButton.innerHTML = "Change display to °F";
+}
+
 const setupUnchangingIcons = () => {
     humidityIcon.src = IconImports.iconMap["humidity"];
     windSpeedIcon.src = IconImports.iconMap["windSpeed"];
 }
 
 setupUnchangingIcons();
-const DomManager = {showWeatherInfo, displayDailyDivs, displayHourlyDivs};
+const DomManager = {showWeatherInfo, displayDailyDivs, displayHourlyDivs, changeTempFormatButtonContents};
 export {DomManager};

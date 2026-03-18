@@ -6,6 +6,7 @@ import { DomManager } from "./domManager.js";
 
 const citySearchForm = document.querySelector(".citySearchForm");
 const dailyHourlyButton = document.querySelector(".dailyHourlyButton");
+const tempFormatButton = document.querySelector(".tempFormatButton");
 
 const displayCityInfoFromSearch = async (event) => {
     event.preventDefault();
@@ -19,27 +20,37 @@ const displayCityInfo = async (newCityName) => {
     try {
         weatherData = await ApiManager.fetchWeatherInfo(newCityName);
     } catch (err) {
-        console.log(err.message);
+        alert(err.message);
         return;
     }
-    if(weatherData) console.log(weatherData);
     const extractedData = DataHandling.extractWeatherData(weatherData);
-    DataHandling.currentData.setCurrentData(extractedData);
+    DataHandling.currentData.currentData = extractedData;
     DomManager.showWeatherInfo(extractedData);
-    DataHandling.currentData.getDailyBool() 
+    DataHandling.currentData.dailyBool
         ? DomManager.displayDailyDivs(extractedData) 
         : DomManager.displayHourlyDivs(extractedData);
 }  
 
 const toggleDailyHourly = () => {
-    const data = DataHandling.currentData.getCurrentData();
-    if(DataHandling.currentData.getDailyBool()) {
-        DataHandling.currentData.setDailyBool(false);
+    const data = DataHandling.currentData.currentData;
+    if(DataHandling.currentData.dailyBool) {
+        DataHandling.currentData.dailyBool = false;
         DomManager.displayHourlyDivs(data);
     } else {
-        DataHandling.currentData.setDailyBool(true);
+        DataHandling.currentData.dailyBool = true;
         DomManager.displayDailyDivs(data);
     }
+}
+
+const toggleFarCel = () => {
+    DataHandling.convertTemps();
+    const data = DataHandling.currentData.currentData;
+    DataHandling.currentData.tempInF = !DataHandling.currentData.tempInF;
+    DomManager.changeTempFormatButtonContents(DataHandling.currentData.tempInF);
+    DomManager.showWeatherInfo(DataHandling.currentData.currentData);
+    DataHandling.currentData.dailyBool
+        ? DomManager.displayDailyDivs(data)
+        : DomManager.displayHourlyDivs(data);
 }
 
 const displayDefaultInfo = () => {
@@ -49,6 +60,7 @@ const displayDefaultInfo = () => {
 const setupEventListeners = () => {
     citySearchForm.addEventListener("submit", displayCityInfoFromSearch);
     dailyHourlyButton.addEventListener("click", toggleDailyHourly);
+    tempFormatButton.addEventListener("click", toggleFarCel);
 }
 
 const init = () => {
