@@ -1,7 +1,7 @@
 import { IconImports } from "./iconImports.js";
 
-const homepageTop = document.querySelector(".homepageTop");
 const homepageMiddle = document.querySelector(".homepageMiddle");
+const homepageTop = document.querySelector(".homepageTop");
 const homepageBottom = document.querySelector(".homepageBottom");
 const cityName = document.querySelector(".hmlCityName");
 const weekday = document.querySelector(".hmlWeekday");
