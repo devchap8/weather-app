@@ -6,12 +6,12 @@
     <title>Weather App</title>
 </head>
 <body>
-    <div class="homepageTop">
+    <div class="homepageTop visible">
         <div class="websiteLogo">Weather App</div>
         <button class="searchScreenButton">Search for Your City or Country</button>
         <button class="tempFormatButton">Change display to °C</button>
     </div>
-    <div class="homepageMiddle">
+    <div class="homepageMiddle visible">
         <div class="homepageMiddleLeft">
             <div class="hmlCityName">City Name</div>
             <div class="hmlDateContainer">
@@ -47,7 +47,7 @@
                 </div>
         </div>
     </div>
-    <div class="homepageBottom">
+    <div class="homepageBottom visible">
  
         </div>
     </div>
@@ -56,6 +56,10 @@
             <div class="autocomplete-container" id="autocomplete-container"></div>
         </form>
         <div class="errorMessage hidden">⚠️ Location not found. ⚠️ Please enter a valid city.</div>
+    </div>
+    <div class="loadingScreen">
+        <img class="loadingIcon" height="700px" width="700px">
+        <div class="loadingMessage">Loading...</div>
     </div>
 </body>
 </html>

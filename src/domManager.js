@@ -20,6 +20,8 @@ const precipIcon = document.querySelector(".precipitationIcon");
 const tempFormatButton = document.querySelector(".tempFormatButton");
 const searchScreen = document.querySelector(".searchScreen");
 const errorMessage = document.querySelector(".errorMessage");
+const loadingIcon = document.querySelector(".loadingIcon");
+const loadingScreen = document.querySelector(".loadingScreen");
 
 
 const showWeatherInfo = (data) => {
@@ -154,14 +156,29 @@ const changeTempFormatButtonContents = (tempInF) => {
         : tempFormatButton.innerHTML = "Change display to °F";
 }
 
+const toggleLoadingScreen = () => {
+    if(loadingScreen.classList.contains("hidden")) {
+        loadingScreen.style.display = "block";
+        homepageTop.classList = "homepageTop hidden";
+        homepageMiddle.classList = "homepageMiddle hidden";
+        homepageBottom.classList = "homepageBottom hidden";
+    } else {
+        loadingScreen.style.display = "none";
+        homepageTop.classList = "homepageTop visible";
+        homepageMiddle.classList = "homepageMiddle visible";
+        homepageBottom.classList = "homepageBottom visible";
+    }
+}
+
 const setupUnchangingIcons = () => {
     humidityIcon.src = IconImports.iconMap["humidity"];
     windSpeedIcon.src = IconImports.iconMap["windSpeed"];
+    loadingIcon.src = IconImports.iconMap["loading-icon"];
 }
 
 setupUnchangingIcons();
 const DomManager = {
     showWeatherInfo, displayDailyDivs, displayHourlyDivs, changeTempFormatButtonContents,
-    toggleHomepageBlur, toggleSearchScreen, showErrorMessage, hideErrorMessage
+    toggleHomepageBlur, toggleSearchScreen, showErrorMessage, hideErrorMessage, toggleLoadingScreen
 };
 export {DomManager};

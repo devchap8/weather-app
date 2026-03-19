@@ -29,10 +29,13 @@ const displayCityInfoFromSearch = async (event) => {
 
 const displayCityInfo = async (newCityName) => {
     let weatherData;
+    DomManager.toggleLoadingScreen();
     try {
         weatherData = await ApiManager.fetchWeatherInfo(newCityName);
     } catch (err) {
         return false;
+    } finally {
+        DomManager.toggleLoadingScreen();
     }
     const extractedData = DataHandling.extractWeatherData(weatherData);
     DataHandling.currentData.currentData = extractedData;

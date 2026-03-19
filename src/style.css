@@ -308,3 +308,16 @@ body {
     width: 400px;
     line-height: 2.5rem;
 }
+
+.loadingScreen {
+    /* position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); */
+    display: none;
+    text-align: center;
+}
+
+.loadingMessage {
+    font-size: 5rem;
+}

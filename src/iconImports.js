@@ -23,6 +23,7 @@ import wind from "./images/wind.svg";
 import humidity from "./images/humidity.svg";
 import windSpeed from "./images/windspeed.svg";
 import noRain from "./images/no-rain.svg";
+import loadingIcon from "./images/loading.svg";
 
 const iconMap = {
     "clear-day": clearDay,
@@ -49,7 +50,8 @@ const iconMap = {
     "wind": wind,
     "windSpeed": windSpeed,
     "humidity": humidity,
-    "no-rain": noRain
+    "no-rain": noRain,
+    "loading-icon": loadingIcon
 };
 
 const IconImports = {iconMap};
