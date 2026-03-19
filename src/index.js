@@ -11,7 +11,7 @@ const searchScreenButton = document.querySelector(".searchScreenButton");
 const homepageTop = document.querySelector(".homepageTop");
 const homepageMiddle = document.querySelector(".homepageMiddle");
 const homepageBottom = document.querySelector(".homepageBottom");
-const addressInput = document.querySelector("#addressInput");
+const errorMessage = document.querySelector(".errorMessage");
 
 // Event Listeners / Init Functions
 
@@ -19,8 +19,12 @@ const displayCityInfoFromSearch = async (event) => {
     event.preventDefault();
     const citySearchFormData = new FormData(citySearchForm);
     const newCityName = citySearchFormData.get("addressInput");
-    displayCityInfo(newCityName);
-    hideSearchScreen();
+    if(displayCityInfo(newCityName)) {
+        hideSearchScreen();
+        DomManager.hideErrorMessage();
+    } else {
+        DomManager.showErrorMessage();
+    }
 }
 
 const displayCityInfo = async (newCityName) => {
@@ -28,8 +32,7 @@ const displayCityInfo = async (newCityName) => {
     try {
         weatherData = await ApiManager.fetchWeatherInfo(newCityName);
     } catch (err) {
-        alert(err.message);
-        return;
+        return false;
     }
     const extractedData = DataHandling.extractWeatherData(weatherData);
     DataHandling.currentData.currentData = extractedData;
@@ -37,6 +40,7 @@ const displayCityInfo = async (newCityName) => {
     DataHandling.currentData.dailyBool
         ? DomManager.displayDailyDivs(extractedData) 
         : DomManager.displayHourlyDivs(extractedData);
+    return true;
 }  
 
 const toggleDailyHourly = () => {
@@ -75,6 +79,7 @@ const hideSearchScreen = () => {
     addHomescreenElementEventListeners();
     DomManager.toggleSearchScreen();
     removeFullHomescreenEventListener();
+    addressInput.value = "";
 }
 
 const displayDefaultInfo = () => {
@@ -133,7 +138,8 @@ function addressAutocomplete(containerElement, callback, options) {
   inputElement.setAttribute("type", "text");
   inputElement.setAttribute("placeholder", options.placeholder);
   inputElement.setAttribute("name", "addressInput");
-  inputElement.setAttribute("id", "addressInput")
+  inputElement.setAttribute("id", "addressInput");
+  inputElement.setAttribute("autocomplete", "off");
   inputContainerElement.appendChild(inputElement);
 
   // add input field clear button
@@ -342,8 +348,9 @@ function addressAutocomplete(containerElement, callback, options) {
 addressAutocomplete(document.getElementById("autocomplete-container"), (data) => {
 
 }, {
-  placeholder: "Enter an address here"
+  placeholder: "Search your country, city, state, address, etc."
 });
 
-
-
+// select addressInput at bottom so it is selected after initialization
+const addressInput = document.querySelector("input");
+init();
